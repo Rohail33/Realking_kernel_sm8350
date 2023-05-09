@@ -1,0 +1,55 @@
+/lib/modules/llcc_perfmon.ko:
+/lib/modules/rdbg.ko:
+/lib/modules/hwid.ko:
+/lib/modules/nfc_i2c.ko:
+/lib/modules/wlan_firmware_service_v01.ko:
+/lib/modules/device_management_service_v01.ko:
+/lib/modules/cnss2.ko: /lib/modules/device_management_service_v01.ko /lib/modules/hwid.ko /lib/modules/wlan_firmware_service_v01.ko
+/lib/modules/xiaomi_touch.ko:
+/lib/modules/focaltech_touch.ko: /lib/modules/xiaomi_touch.ko
+/lib/modules/fpc1020_tee.ko:
+/lib/modules/qti_battery_charger.ko:
+/lib/modules/btpower.ko:
+/lib/modules/bt_fm_slim.ko: /lib/modules/btpower.ko /lib/modules/slimbus.ko
+/lib/modules/ledtrig-timer.ko:
+/lib/modules/led-class-flash.ko:
+/lib/modules/leds-qti-flash.ko: /lib/modules/led-class-flash.ko /lib/modules/qti_battery_charger.ko
+/lib/modules/leds-qti-tri-led.ko:
+/lib/modules/wlan.ko: /lib/modules/cnss2.ko /lib/modules/device_management_service_v01.ko /lib/modules/hwid.ko /lib/modules/wlan_firmware_service_v01.ko
+/lib/modules/slimbus.ko:
+/lib/modules/slimbus-ngd.ko: /lib/modules/slimbus.ko
+/lib/modules/pinctrl_wcd_dlkm.ko:
+/lib/modules/pinctrl_lpi_dlkm.ko: /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/swr_dlkm.ko:
+/lib/modules/snd_event_dlkm.ko:
+/lib/modules/swr_ctrl_dlkm.ko: /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/native_dlkm.ko: /lib/modules/platform_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/q6_dlkm.ko: /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/adsp_loader_dlkm.ko: /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/q6_pdr_dlkm.ko:
+/lib/modules/q6_notifier_dlkm.ko: /lib/modules/q6_pdr_dlkm.ko
+/lib/modules/apr_dlkm.ko: /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/wcd938x_dlkm.ko: /lib/modules/wcd9xxx_dlkm.ko /lib/modules/mbhc_dlkm.ko /lib/modules/tx_macro_dlkm.ko /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/wcd938x_slave_dlkm.ko: /lib/modules/swr_dlkm.ko
+/lib/modules/bolero_cdc_dlkm.ko: /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/wsa_macro_dlkm.ko: /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/va_macro_dlkm.ko: /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/tx_macro_dlkm.ko: /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/rx_macro_dlkm.ko: /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/wsa883x_dlkm.ko: /lib/modules/wcd_core_dlkm.ko /lib/modules/swr_dlkm.ko
+/lib/modules/cs35l41_dlkm.ko: /lib/modules/snd_event_dlkm.ko
+/lib/modules/wcd_core_dlkm.ko:
+/lib/modules/wcd9xxx_dlkm.ko: /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/swr_dmic_dlkm.ko: /lib/modules/wcd938x_dlkm.ko /lib/modules/wcd9xxx_dlkm.ko /lib/modules/mbhc_dlkm.ko /lib/modules/tx_macro_dlkm.ko /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/stub_dlkm.ko:
+/lib/modules/mbhc_dlkm.ko: /lib/modules/tx_macro_dlkm.ko /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/hdmi_dlkm.ko:
+/lib/modules/swr_haptics_dlkm.ko: /lib/modules/swr_dlkm.ko
+/lib/modules/us_prox_iio.ko:
+/lib/modules/platform_dlkm.ko: /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/machine_dlkm.ko: /lib/modules/wsa883x_dlkm.ko /lib/modules/wcd938x_dlkm.ko /lib/modules/wcd9xxx_dlkm.ko /lib/modules/mbhc_dlkm.ko /lib/modules/bolero/tx_macro_dlkm.ko /lib/modules/swr_ctrl_dlkm.ko /lib/modules/wcd_core_dlkm.ko /lib/modules/bolero_cdc_dlkm.ko /lib/modules/swr_dlkm.ko /lib/modules/q6_dlkm.ko /lib/modules/us_prox_iio.ko /lib/modules/apr_dlkm.ko /lib/modules/q6_notifier_dlkm.ko /lib/modules/q6_pdr_dlkm.ko /lib/modules/snd_event_dlkm.ko
+/lib/modules/rmnet_offload.ko: /lib/modules/rmnet_core.ko /lib/modules/rmnet_ctl.ko
+/lib/modules/rmnet_shs.ko: /lib/modules/rmnet_core.ko /lib/modules/rmnet_ctl.ko
+/lib/modules/rmnet_core.ko: /lib/modules/rmnet_ctl.ko
+/lib/modules/rmnet_ctl.ko:
+/lib/modules/camera.ko: /lib/modules/leds-qti-flash.ko /lib/modules/led-class-flash.ko /lib/modules/qti_battery_charger.ko /lib/modules/hwid.ko
