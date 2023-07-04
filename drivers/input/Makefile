@@ -31,6 +31,7 @@ obj-$(CONFIG_INPUT_APMPOWER)	+= apm-power.o
 
 obj-$(CONFIG_RMI4_CORE)		+= rmi4/
 obj-$(CONFIG_STMVL53L5)		+= stmvl53l5/
+obj-y                           += input_boost/
 
 KBUILD_CPPFLAGS += -DQCOM_HAPTIC_F0_PROTECT
 KBUILD_CPPFLAGS += -DCONFIG_TARGET_PRODUCT_HAYDN

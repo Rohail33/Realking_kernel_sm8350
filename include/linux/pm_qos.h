@@ -13,6 +13,7 @@
 enum {
 	PM_QOS_RESERVED = 0,
 	PM_QOS_CPU_DMA_LATENCY,
+	PM_QOS_BIAS_HYST,
 
 	/* insert new class ID */
 	PM_QOS_NUM_CLASSES,
@@ -24,6 +25,8 @@ enum pm_qos_flags_status {
 	PM_QOS_FLAGS_SOME,
 	PM_QOS_FLAGS_ALL,
 };
+
+#define PM_QOS_BIAS_HYST_DEFAULT_VALUE 0
 
 #define PM_QOS_DEFAULT_VALUE	(-1)
 #define PM_QOS_LATENCY_ANY	S32_MAX

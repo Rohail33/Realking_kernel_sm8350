@@ -20,6 +20,15 @@ void set_hmp(int level);
 
 #define DVFS_TOUCH_ID	0
 
+int *release_val;
+int *cpu_cluster_policy;
+int *allowed_resources;
+
+int max_resource_count;
+int device_count;
+int max_cluster_count;
+int allowed_res_count;
+
 
 
 #if defined(CONFIG_ARCH_LAHAINA)

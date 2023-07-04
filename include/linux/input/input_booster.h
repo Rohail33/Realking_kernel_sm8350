@@ -28,7 +28,6 @@
 #endif
 
 #define pr_booster(format, ...) { \
-	if (debug_flag) \
 		printk(ITAG format, ## __VA_ARGS__); \
 }
 
@@ -279,9 +278,6 @@ void input_booster_exit(void);
 
 void init_sysfs_device(struct class *sysfs_class, struct t_ib_device_tree *ib_dt);
 
-#if IS_ENABLED(CONFIG_SEC_INPUT_BOOSTER_QC) || \
-	IS_ENABLED(CONFIG_SEC_INPUT_BOOSTER_SLSI) || \
-	IS_ENABLED(CONFIG_SEC_INPUT_BOOSTER_MTK)
 void ib_release_booster(long *rel_flags);
 void ib_set_booster(long *qos_values);
 int input_booster_init_vendor(void);
@@ -290,11 +286,10 @@ void input_booster_exit_vendor(void);
 extern int sched_set_boost(int type);
 extern int ib_notifier_register(struct notifier_block *nb);
 extern int ib_notifier_unregister(struct notifier_block *nb);
-#endif
+
 
 int set_freq_limit(unsigned long id, unsigned int freq);
 
-#if IS_ENABLED(CONFIG_SEC_INPUT_BOOSTER_QC)
 extern void update_hyst_times_kernel(u64 ib_value);
 enum booster_res_type {
 	CPUFREQ = 0,
@@ -303,25 +298,7 @@ enum booster_res_type {
 	LPMBIAS,
 	MAX_RES_COUNT
 };
-#elif IS_ENABLED(CONFIG_SEC_INPUT_BOOSTER_SLSI)
-enum booster_res_type {
-	CLUSTER2 = 0,
-	CLUSTER1,
-	CLUSTER0,
-	MIF,
-	INT,
-	HMPBOOST,
-	UCC,
-	MAX_RES_COUNT
-};
-#elif IS_ENABLED(CONFIG_SEC_INPUT_BOOSTER_MTK)
-enum booster_res_type {
-	CPUFREQ = 0,
-	DDRFREQ,
-	SCHEDBOOST,
-	MAX_RES_COUNT
-};
-#endif
+
 
 extern int *cpu_cluster_policy;
 extern int *allowed_resources;
