@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016-2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -119,6 +120,34 @@ enum mgmt_subtype {
  *                                             action category
  * @ACTION_CATEGORY_VENDOR_SPECIFIC: vendor specific action category
  */
+/*enum mgmt_action_category {
+	ACTION_CATEGORY_SPECTRUM_MGMT = 0,
+	ACTION_CATEGORY_QOS = 1,
+	ACTION_CATEGORY_DLS = 2,
+	ACTION_CATEGORY_BACK = 3,
+	ACTION_CATEGORY_PUBLIC = 4,
+	ACTION_CATEGORY_RRM = 5,
+	ACTION_FAST_BSS_TRNST = 6,
+	ACTION_CATEGORY_HT = 7,
+	ACTION_CATEGORY_SA_QUERY = 8,
+	ACTION_CATEGORY_PROTECTED_DUAL_OF_PUBLIC_ACTION = 9,
+	ACTION_CATEGORY_WNM = 10,
+	ACTION_CATEGORY_WNM_UNPROTECTED = 11,
+	ACTION_CATEGORY_TDLS = 12,
+	ACTION_CATEGORY_MESH_ACTION = 13,
+	ACTION_CATEGORY_MULTIHOP_ACTION = 14,
+	ACTION_CATEGORY_SELF_PROTECTED = 15,
+	ACTION_CATEGORY_DMG = 16,
+	ACTION_CATEGORY_WMM = 17,
+	ACTION_CATEGORY_FST = 18,
+	ACTION_CATEGORY_RVS = 19,
+	ACTION_CATEGORY_UNPROT_DMG = 20,
+	ACTION_CATEGORY_VHT = 21,
+	ACTION_CATEGORY_USIG = 22,
+	ACTION_CATEGORY_VENDOR_SPECIFIC_PROTECTED = 126,
+	ACTION_CATEGORY_VENDOR_SPECIFIC = 127,
+};*/
+
 enum mgmt_action_category {
 	ACTION_CATEGORY_SPECTRUM_MGMT = 0,
 	ACTION_CATEGORY_QOS = 1,
@@ -142,9 +171,18 @@ enum mgmt_action_category {
 	ACTION_CATEGORY_RVS = 19,
 	ACTION_CATEGORY_UNPROT_DMG = 20,
 	ACTION_CATEGORY_VHT = 21,
+	ACTION_CATEGORY_USIG = 22,
+	ACTION_CATEGORY_SIG = 23,
+	ACTION_CATEGORY_FLOW_CONTROL = 24,
+	ACTION_CATEGORY_CONTROL_RSP_MCS_NEGO = 25,
+	ACTION_CATEGORY_FILS = 26,
+	ACTION_CATEGORY_CDMG = 27,
+	ACTION_CATEGORY_CMMG = 28,
+	ACTION_CATEGORY_GLK = 29,
 	ACTION_CATEGORY_VENDOR_SPECIFIC_PROTECTED = 126,
 	ACTION_CATEGORY_VENDOR_SPECIFIC = 127,
 };
+
 
 /**
  * enum spectrum_mgmt_actioncode - spectrum mgmt. action frms
@@ -204,6 +242,7 @@ enum block_ack_actioncode {
 
 /**
  * enum pub_actioncode - public action frames
+ * Reference IEEE Std 802.11-2020 Table 9-364—Public Action field values
  * @PUB_ACTION_2040_BSS_COEXISTENCE:  public 20-40 bss coex action frame
  * @PUB_ACTION_EXT_CHANNEL_SWITCH_ID: public ext channel switch id action frame
  * @PUB_ACTION_VENDOR_SPECIFIC: vendor specific public action frame
@@ -212,6 +251,8 @@ enum block_ack_actioncode {
  * @PUB_ACTION_GAS_COMEBACK_REQUEST: GAS comeback request action frame
  * @PUB_ACTION_GAS_COMEBACK_RESPONSE: GAS comeback respose action frame
  * @PUB_ACTION_TDLS_DISCRESP: tdls discovery response public action frame
+ * @PUB_ACTION_FTM_REQUEST: FTM request action frame
+ * @PUB_ACTION_FTM_RESPONSE: FTM respose action frame
  */
 enum pub_actioncode {
 	PUB_ACTION_2040_BSS_COEXISTENCE = 0,
@@ -222,6 +263,8 @@ enum pub_actioncode {
 	PUB_ACTION_GAS_COMEBACK_REQUEST = 12,
 	PUB_ACTION_GAS_COMEBACK_RESPONSE = 13,
 	PUB_ACTION_TDLS_DISCRESP = 14,
+	PUB_ACTION_FTM_REQUEST = 32,
+	PUB_ACTION_FTM_RESPONSE = 33,
 };
 
 /**
@@ -472,6 +515,17 @@ enum vht_actioncode {
 };
 
 /**
+ * enum twt_actioncode - twt action frames
+ * @TWT_SETUP: twt set up action frame
+ * @TWT_INFORMATION: twt information action frame
+ */
+enum twt_actioncode {
+	TWT_SETUP = 6,
+	TWT_TEARDOWN = 7,
+	TWT_INFORMATION = 11,
+};
+
+/**
  * struct action_frm_hdr - action frame header
  * @action_category: action category
  * @action_code: action code
@@ -601,6 +655,11 @@ struct action_frm_hdr {
  * @MGMT_ACTION_MCSC_RSP: MCSC response frame
  * @MGMT_FRAME_TYPE_ALL:         mgmt frame type for all type of frames
  * @MGMT_CTRL_FRAME: Control Frames
+ * @MGMT_ACTION_TWT_SETUP: TWT setup frame
+ * @MGMT_ACTION_TWT_TEARDOWN: TWT teardown frame
+ * @MGMT_ACTION_TWT_INFORMATION: TWT information frame
+ * @MGMT_ACTION_FTM_REQUEST: FTM request frame
+ * @MGMT_ACTION_FTM_RESPONSE: FTM response frame
  * @MGMT_MAX_FRAME_TYPE:         max. mgmt frame types
  */
 enum mgmt_frame_type {
@@ -726,6 +785,11 @@ enum mgmt_frame_type {
 	MGMT_ACTION_MCSC_RSP,
 	MGMT_FRAME_TYPE_ALL,
 	MGMT_CTRL_FRAME,
+	MGMT_ACTION_TWT_SETUP,
+	MGMT_ACTION_TWT_TEARDOWN,
+	MGMT_ACTION_TWT_INFORMATION,
+	MGMT_ACTION_FTM_REQUEST,
+	MGMT_ACTION_FTM_RESPONSE,
 	MGMT_MAX_FRAME_TYPE,
 };
 
@@ -881,6 +945,9 @@ QDF_STATUS wlan_mgmt_txrx_mgmt_frame_tx(struct wlan_objmgr_peer *peer,
 					mgmt_ota_comp_cb tx_ota_comp_cb,
 					enum wlan_umac_comp_id comp_id,
 					void *mgmt_tx_params);
+
+
+bool wlan_mgmt_is_rmf_mgmt_action_frame(uint8_t action_category);
 
 /**
  * wlan_mgmt_txrx_beacon_frame_tx() - transmits mgmt. beacon

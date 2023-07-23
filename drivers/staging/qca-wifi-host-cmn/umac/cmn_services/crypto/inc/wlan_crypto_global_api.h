@@ -1110,6 +1110,9 @@ void wlan_crypto_set_sae_single_pmk_bss_cap(struct wlan_objmgr_vdev *vdev,
  *
  * Return: QDF_STATUS
  */
+void
+wlan_crypto_set_sae_single_pmk_info(struct wlan_objmgr_vdev *vdev,
+				    struct wlan_crypto_pmksa *roam_sync_pmksa);
 QDF_STATUS wlan_crypto_create_fils_rik(uint8_t *rrk, uint8_t rrk_len,
 				       uint8_t *rik, uint32_t *rik_len);
 #endif /* WLAN_FEATURE_FILS_SK */
