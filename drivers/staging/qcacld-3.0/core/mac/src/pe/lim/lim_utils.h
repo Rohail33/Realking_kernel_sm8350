@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012-2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -103,6 +104,12 @@ typedef enum {
 
 #define MAX_WAIT_FOR_BCN_TX_COMPLETE 4000
 #define MAX_WAKELOCK_FOR_CSA         5000
+
+#ifdef WLAN_FEATURE_11BE
+#define MAX_NUM_PWR_LEVELS 16
+#else
+#define MAX_NUM_PWR_LEVELS 8
+#endif
 
 #ifdef WLAN_FEATURE_11W
 typedef union uPmfSaQueryTimerId {
@@ -1074,7 +1081,6 @@ static inline void lim_deactivate_and_change_timer_host_roam(
 {}
 #endif
 
-bool lim_is_robust_mgmt_action_frame(uint8_t action_category);
 uint8_t lim_compute_ext_cap_ie_length(tDot11fIEExtCap *ext_cap);
 
 void lim_update_caps_info_for_bss(struct mac_context *mac_ctx,
@@ -2241,4 +2247,19 @@ void lim_process_tpe_ie_from_beacon(struct mac_context *mac,
  * Return: void
  */
 void lim_send_conc_params_update(void);
+
+#ifdef WLAN_FEATURE_SAE
+/**
+ * lim_process_sae_msg() - Process SAE message
+ * @mac: Global MAC pointer
+ * @body: Buffer pointer
+ *
+ * Return: None
+ */
+void lim_process_sae_msg(struct mac_context *mac, struct sir_sae_msg *body);
+#else
+static inline void lim_process_sae_msg(struct mac_context *mac, void *body);
+{}
+#endif
+
 #endif /* __LIM_UTILS_H */

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2011-2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -6652,46 +6653,6 @@ void lim_update_obss_scanparams(struct pe_session *session,
 }
 
 /**
- * lim_is_robust_mgmt_action_frame() - Check if action category is
- * robust action frame
- * @action_category: Action frame category.
- *
- * This function is used to check if given action category is robust
- * action frame.
- *
- * Return: bool
- */
-bool lim_is_robust_mgmt_action_frame(uint8_t action_category)
-{
-	switch (action_category) {
-	/*
-	 * NOTE: This function doesn't take care of the DMG
-	 * (Directional Multi-Gigatbit) BSS case as 8011ad
-	 * support is not yet added. In future, if the support
-	 * is required then this function need few more arguments
-	 * and little change in logic.
-	 */
-	case ACTION_CATEGORY_SPECTRUM_MGMT:
-	case ACTION_CATEGORY_QOS:
-	case ACTION_CATEGORY_DLS:
-	case ACTION_CATEGORY_BACK:
-	case ACTION_CATEGORY_RRM:
-	case ACTION_FAST_BSS_TRNST:
-	case ACTION_CATEGORY_SA_QUERY:
-	case ACTION_CATEGORY_PROTECTED_DUAL_OF_PUBLIC_ACTION:
-	case ACTION_CATEGORY_WNM:
-	case ACTION_CATEGORY_MESH_ACTION:
-	case ACTION_CATEGORY_MULTIHOP_ACTION:
-	case ACTION_CATEGORY_FST:
-		return true;
-	default:
-		pe_debug("non-PMF action category: %d", action_category);
-		break;
-	}
-	return false;
-}
-
-/**
  * lim_compute_ext_cap_ie_length - compute the length of ext cap ie
  * based on the bits set
  * @ext_cap: extended IEs structure
@@ -7366,7 +7327,6 @@ void lim_decide_he_op(struct mac_context *mac_ctx, uint32_t *mlme_he_ops,
 	he_ops.twt_required = he_ops_from_ie->twt_required;
 	he_ops.txop_rts_threshold = he_ops_from_ie->txop_rts_threshold;
 	he_ops.partial_bss_col = he_ops_from_ie->partial_bss_col;
-	he_ops.bss_col_disabled = he_ops_from_ie->bss_col_disabled;
 
 	val = mac_ctx->mlme_cfg->he_caps.he_ops_basic_mcs_nss;
 

@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012-2021 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2021-2022 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -1197,6 +1198,20 @@ struct rcpi_info {
 
 struct hdd_context;
 
+#ifdef WLAN_FEATURE_DYNAMIC_RX_AGGREGATION
+/**
+ * enum qdisc_filter_status - QDISC filter status
+ * @QDISC_FILTER_RTNL_LOCK_FAIL: rtnl lock acquire failed
+ * @QDISC_FILTER_PRIO_MATCH: qdisc filter with priority match
+ * @QDISC_FILTER_PRIO_MISMATCH: no filter match with configured priority
+ */
+enum qdisc_filter_status {
+	QDISC_FILTER_RTNL_LOCK_FAIL,
+	QDISC_FILTER_PRIO_MATCH,
+	QDISC_FILTER_PRIO_MISMATCH,
+};
+#endif
+
 /**
  * struct hdd_adapter - hdd vdev/net_device context
  * @vdev: object manager vdev context
@@ -1386,6 +1401,10 @@ struct hdd_adapter {
 	qdf_work_t gpio_tsf_sync_work;
 #endif
 #endif /* WLAN_FEATURE_TSF_PLUS */
+#ifdef WLAN_FEATURE_TSF_UPLINK_DELAY
+	/* to indicate if TSF auto report is enabled or not */
+	qdf_atomic_t tsf_auto_report;
+#endif /* WLAN_FEATURE_TSF_UPLINK_DELAY */
 #endif
 
 	struct hdd_multicast_addr_list mc_addr_list;
@@ -1436,6 +1455,7 @@ struct hdd_adapter {
 
 #ifdef WLAN_FEATURE_LINK_LAYER_STATS
 	bool is_link_layer_stats_set;
+	uint8_t ll_stats_failure_count;
 #endif
 	uint8_t link_status;
 	uint8_t upgrade_udp_qos_threshold;
@@ -1451,6 +1471,7 @@ struct hdd_adapter {
 
 	/* BITMAP indicating pause reason */
 	uint32_t pause_map;
+	uint32_t subqueue_pause_map;
 	spinlock_t pause_map_lock;
 	qdf_time_t start_time;
 	qdf_time_t last_time;
@@ -1525,9 +1546,11 @@ struct hdd_adapter {
 	void *cookie;
 	bool response_expected;
 #endif
-	uint8_t gro_disallowed[DP_MAX_RX_THREADS];
+	qdf_atomic_t gro_disallowed;
 	uint8_t gro_flushed[DP_MAX_RX_THREADS];
 	bool handle_feature_update;
+	/* Indicate if TSO and checksum offload features are enabled or not */
+	bool tso_csum_feature_enabled;
 	bool runtime_disable_rx_thread;
 	ol_txrx_rx_fp rx_stack;
 
@@ -1856,6 +1879,8 @@ struct hdd_adapter_ops_history {
  * @country_change_work: work for updating vdev when country changes
  * @rx_aggregation: rx aggregation enable or disable state
  * @gro_force_flush: gro force flushed indication flag
+ * @tc_based_dyn_gro: TC based dynamic GRO enable/disable flag
+ * @tc_ingress_prio: TC ingress priority
  * @current_pcie_gen_speed: current pcie gen speed
  * @pm_qos_req: pm_qos request for all cpu cores
  * @qos_cpu_mask: voted cpu core mask
@@ -2166,7 +2191,7 @@ struct hdd_context {
 	struct sar_limit_cmd_params *sar_cmd_params;
 #ifdef SAR_SAFETY_FEATURE
 	qdf_mc_timer_t sar_safety_timer;
-	qdf_mc_timer_t sar_safety_unsolicited_timer;
+	struct qdf_delayed_work sar_safety_unsolicited_work;
 	qdf_event_t sar_safety_req_resp_event;
 	qdf_atomic_t sar_safety_req_resp_event_in_progress;
 #endif
@@ -2195,6 +2220,8 @@ struct hdd_context {
 	struct {
 		qdf_atomic_t rx_aggregation;
 		uint8_t gro_force_flush[DP_MAX_RX_THREADS];
+		bool tc_based_dyn_gro;
+		uint32_t tc_ingress_prio;
 	} dp_agg_param;
 	int current_pcie_gen_speed;
 	qdf_workqueue_t *adapter_ops_wq;
@@ -2219,6 +2246,7 @@ struct hdd_context {
 #ifdef THERMAL_STATS_SUPPORT
 	bool is_therm_stats_in_progress;
 #endif
+	uint64_t bw_vote_time;
 };
 
 /**

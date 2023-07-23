@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012-2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2021 Qualcomm Innovation Center, Inc. All rights reserved.
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -1051,7 +1052,7 @@ QDF_STATUS populate_dot11f_rrm_ie(struct mac_context *mac,
 				struct pe_session *pe_session);
 
 void populate_mdie(struct mac_context *mac, tDot11fIEMobilityDomain *pDot11f,
-		   uint8_t mdie[SIR_MDIE_SIZE]);
+		   uint8_t mdie[]);
 
 #ifdef WLAN_FEATURE_FILS_SK
 /**
